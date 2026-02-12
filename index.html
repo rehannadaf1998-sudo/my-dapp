@@ -1,23 +1,30 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>My DApp</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <title>Wallet Test</title>
 </head>
 <body style="text-align:center; font-family:sans-serif;">
 
-<h1>My DApp 🚀</h1>
-
-<button onclick="connectWallet()">Connect Wallet</button>
-<p id="walletAddress"></p>
+<h2>Wallet Connect Test</h2>
+<button id="btn">Connect Wallet</button>
 
 <script>
-async function connectWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
-    const address = await signer.getAddress();
-    document.getElementById("walletAddress").innerText = "Connect
+document.getElementById("btn").addEventListener("click", async function () {
+  if (window.ethereum) {
+    alert("Ethereum object found");
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      alert("Connected!");
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  } else {
+    alert("No Ethereum provider detected");
+  }
+});
+</script>
+
+</body>
+</html>
       

@@ -3,11 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>My DApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
 <body style="text-align:center; font-family:sans-serif;">
 
-<h1>My DApp is Live 🚀</h1>
-<p>If you see this, GitHub hosting works perfectly.</p>
+<h1>My DApp 🚀</h1>
+
+<button onclick="connectWallet()">Connect Wallet</button>
+<p id="walletAddress"></p>
+
+<script>
+async function connectWallet() {
+  if (typeof window.ethereum !== 'undefined') {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    document.getElementById("walletAddress").innerText = "Connected: " + address;
+  } else {
+    alert("Please open in MetaMask browser");
+  }
+}
+</script>
 
 </body>
 </html>
